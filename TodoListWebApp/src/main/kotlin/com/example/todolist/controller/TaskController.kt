@@ -41,7 +41,7 @@ class TaskController(private val taskRepository: TaskRepository) {
 
     @GetMapping("{id}/edit")
     fun edit(@PathVariable("id") id: Long, form: TaskUpdateForm): String {
-        val task = this.taskRepository.find { it.id == id } ?: throw NotFoundException()
+        val task = this.taskRepository.findById(id) ?: throw NotFoundException()
         form.content = task.content
         form.done = task.done
         return "tasks/edit"
@@ -52,7 +52,7 @@ class TaskController(private val taskRepository: TaskRepository) {
         if(bindingResult.hasErrors())
             return "tasks/edit"
 
-        val task = this.taskRepository.find { it.id == id } ?: throw NotFoundException()
+        val task = this.taskRepository.findById(id) ?: throw NotFoundException()
         val newTask = task.copy(content = requireNotNull(form.content), done = form.done)
         this.taskRepository.update(newTask)
         return "redirect:/tasks"

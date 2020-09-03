@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository
  * Class that implements [TaskRepository].
  * This class holds tasks in memory.
  */
-@Repository
+//@Repository
 class InMemoryTaskRepository : TaskRepository {
     private val tasks = mutableListOf<Task>()
 
@@ -14,8 +14,8 @@ class InMemoryTaskRepository : TaskRepository {
         return this.tasks.toList()
     }
 
-    override fun find(predicate: (Task) -> Boolean): Task? {
-        return this.tasks.find(predicate)
+    override fun findById(id: Long): Task? {
+        return this.tasks.find { it.id == id }
     }
 
     override fun create(content: String): Task {

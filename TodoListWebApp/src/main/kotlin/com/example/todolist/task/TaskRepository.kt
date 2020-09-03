@@ -10,10 +10,9 @@ interface TaskRepository {
     fun findAll(): List<Task>
 
     /**
-     * Returns a task that satisfies [predicate]
-     * Returns null if no task is found.
+     * Returns a task whose id matches an argument [id].
      */
-    fun find(predicate: (Task) -> Boolean): Task?
+    fun findById(id: Long): Task?
 
     /**
      * Adds a new task to this [TaskRepository], and returns the task to be added.
